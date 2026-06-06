@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:controller="app.MenuController"
+            prefHeight="661.0" prefWidth="640.0"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="@styles.css">
+
+  <!-- CABEÇALHO -->
+  <top>
+    <HBox prefHeight="84.0" style="-fx-background-color: #006d57; -fx-alignment: CENTER;">
+      <children>
+        <ImageView fitHeight="84.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+          <image>
+            <Image url="@../../../../Pictures/logo.jpg"/>
+          </image>
+        </ImageView>
+        <VBox style="-fx-alignment: CENTER; -fx-spacing: 4;" HBox.hgrow="ALWAYS">
+          <children>
+            <Label text="Banco" textFill="WHITE" style="-fx-font-family: 'Times New Roman'; -fx-font-size: 24; -fx-alignment: CENTER;" HBox.hgrow="ALWAYS"/>
+            <Label text="UBUNTUU" textFill="WHITE" style="-fx-font-family: 'Times New Roman Bold'; -fx-font-size: 24; -fx-alignment: CENTER;" HBox.hgrow="ALWAYS"/>
+            <Label text="COMUNIDADE E SABEDORIA" textFill="#c5a059" style="-fx-font-family: 'Times New Roman'; -fx-font-size: 14; -fx-alignment: CENTER;" HBox.hgrow="ALWAYS"/>
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+  </top>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <center>
+    <VBox style="-fx-alignment: TOP_CENTER; -fx-spacing: 20; -fx-padding: 20;" VBox.vgrow="ALWAYS">
+      <children>
+        <!-- AVISOS -->
+        <Label text="POR FAVOR, RETIRE APENAS UMA SENHA"
+               style="-fx-font-family: 'Arial Bold'; -fx-font-size: 18; -fx-text-fill: RED; -fx-alignment: CENTER;"
+               maxWidth="Infinity" wrapText="true"/>
+
+        <Label text="SELECIONE O SERVIÇO DESEJADO"
+               style="-fx-font-family: 'Arial Bold'; -fx-font-size: 18; -fx-text-fill: #075e19; -fx-alignment: CENTER;"
+               maxWidth="Infinity" wrapText="true"/>
+
+        <!-- BOTÕES -->
+        <VBox style="-fx-alignment: TOP_CENTER; -fx-spacing: 10; -fx-padding: 20;" VBox.vgrow="SOMETIMES">
+          <children>
+            <!-- Botão A: Caixa -->
+            <HBox style="-fx-alignment: CENTER; -fx-spacing: 10;">
+              <children>
+                <Label text="A |" textFill="WHITE" style="-fx-font-family: 'System Bold'; -fx-font-size: 24;" HBox.hgrow="NEVER"/>
+                <Button onAction="#caixa"
+                        text="Caixa"
+                        style="-fx-background-color: #006d57; -fx-text-fill: WHITE; -fx-font-family: 'System Bold'; -fx-font-size: 20; -fx-padding: 15;"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                        prefHeight="57.0"/>
+              </children>
+            </HBox>
+
+            <!-- Botão B: Conta -->
+            <HBox style="-fx-alignment: CENTER; -fx-spacing: 10;">
+              <children>
+                <Label text="B |" textFill="WHITE" style="-fx-font-family: 'System Bold'; -fx-font-size: 24;" HBox.hgrow="NEVER"/>
+                <Button onAction="#conta"
+                        text="Conta"
+                        style="-fx-background-color: #006d57; -fx-text-fill: WHITE; -fx-font-family: 'System Bold'; -fx-font-size: 20; -fx-padding: 15;"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                        prefHeight="57.0"/>
+              </children>
+            </HBox>
+
+            <!-- Botão C: Cartões -->
+            <HBox style="-fx-alignment: CENTER; -fx-spacing: 10;">
+              <children>
+                <Label text="C |" textFill="WHITE" style="-fx-font-family: 'System Bold'; -fx-font-size: 24;" HBox.hgrow="NEVER"/>
+                <Button onAction="#cartoes"
+                        text="Cartões"
+                        style="-fx-background-color: #006d57; -fx-text-fill: WHITE; -fx-font-family: 'System Bold'; -fx-font-size: 20; -fx-padding: 15;"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                        prefHeight="57.0"/>
+              </children>
+            </HBox>
+
+            <!-- Botão D: Atendimento Prioritário -->
+            <HBox style="-fx-alignment: CENTER; -fx-spacing: 10;">
+              <children>
+                <Label text="D |" textFill="#c5a059" style="-fx-font-family: 'System Bold'; -fx-font-size: 24;" HBox.hgrow="NEVER"/>
+                <Button onAction="#prioritario"
+                        text="Atendimento Prioritário"
+                        style="-fx-background-color: #b8860b; -fx-text-fill: WHITE; -fx-font-family: 'System Bold'; -fx-font-size: 20; -fx-padding: 15;"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                        prefHeight="57.0"/>
+              </children>
+            </HBox>
+
+            <!-- Botão E: Outros Serviços -->
+            <HBox style="-fx-alignment: CENTER; -fx-spacing: 10;">
+              <children>
+                <Label text="E |" textFill="WHITE" style="-fx-font-family: 'System Bold'; -fx-font-size: 24;" HBox.hgrow="NEVER"/>
+                <Button onAction="#outros"
+                        text="Outros Serviços"
+                        style="-fx-background-color: #006d57; -fx-text-fill: WHITE; -fx-font-family: 'System Bold'; -fx-font-size: 20; -fx-padding: 15;"
+                        maxWidth="Infinity" HBox.hgrow="ALWAYS"
+                        prefHeight="57.0"/>
+              </children>
+            </HBox>
+          </children>
+        </VBox>
+
+        <!-- ESPAÇO VAZIO -->
+        <Region VBox.vgrow="ALWAYS"/>
+      </children>
+    </VBox>
+  </center>
+
+  <!-- RODAPÉ -->
+  <bottom>
+    <HBox prefHeight="78.0" style="-fx-background-color: #006d57; -fx-alignment: CENTER;">
+      <children>
+        <ImageView fitHeight="72.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+          <image>
+            <Image url="@../../../../Pictures/logo.jpg"/>
+          </image>
+        </ImageView>
+        <VBox style="-fx-alignment: CENTER; -fx-spacing: 2; -fx-padding: 0 15;" HBox.hgrow="ALWAYS">
+          <children>
+            <Label text="Banco" textFill="WHITE" style="-fx-font-family: 'Times New Roman'; -fx-font-size: 24; -fx-alignment: CENTER;" HBox.hgrow="ALWAYS"/>
+            <Label text="UBUNTUU" textFill="WHITE" style="-fx-font-family: 'Times New Roman Bold'; -fx-font-size: 24; -fx-alignment: CENTER;" HBox.hgrow="ALWAYS"/>
+            <Label text="COMUNIDADE E SABEDORIA" textFill="#c5a059" style="-fx-font-family: 'Times New Roman'; -fx-font-size: 14; -fx-alignment: CENTER;" HBox.hgrow="ALWAYS"/>
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+  </bottom>
+</BorderPane>

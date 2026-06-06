@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Priority?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:controller="app.LoginController" 
+            prefHeight="661.0" prefWidth="640.0"
+            xmlns="http://javafx.com/javafx/26"
+            xmlns:fx="http://javafx.com/fxml/1"
+            stylesheets="@styles.css">
+  
+  <!-- CABEÇALHO -->
+  <top>
+    <HBox prefHeight="84.0" style="-fx-background-color: #006d57; -fx-alignment: CENTER;">
+      <children>
+        <ImageView fitHeight="84.0" fitWidth="145.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+          <image>
+            <Image url="@../../../../Pictures/logo.jpg"/>
+          </image>
+        </ImageView>
+        <VBox style="-fx-alignment: CENTER; -fx-spacing: 4;" HBox.hgrow="ALWAYS">
+          <children>
+            <Label text="Banco" textFill="WHITE" style="-fx-font-family: 'Times New Roman'; -fx-font-size: 24; -fx-alignment: CENTER;" HBox.hgrow="ALWAYS"/>
+            <Label text="UBUNTUU" textFill="WHITE" style="-fx-font-family: 'Times New Roman Bold'; -fx-font-size: 24; -fx-alignment: CENTER;" HBox.hgrow="ALWAYS"/>
+            <Label text="COMUNIDADE E SABEDORIA" textFill="#c5a059" style="-fx-font-family: 'Times New Roman'; -fx-font-size: 14; -fx-alignment: CENTER;" HBox.hgrow="ALWAYS"/>
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+  </top>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <center>
+    <VBox style="-fx-alignment: TOP_CENTER; -fx-spacing: 20; -fx-padding: 30;" VBox.vgrow="ALWAYS">
+      <children>
+        <!-- TÍTULO -->
+        <Label text="ACESSO AO SISTEMA"
+               style="-fx-font-family: 'Arial Bold'; -fx-font-size: 20; -fx-text-fill: #006d57; -fx-alignment: CENTER;"
+               HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+
+        <!-- CONTAINER FORMULÁRIO -->
+        <VBox style="-fx-alignment: TOP_CENTER; -fx-spacing: 15; -fx-padding: 20; -fx-max-width: 400;" VBox.vgrow="SOMETIMES">
+          <children>
+            <!-- CAMPO: USUÁRIO -->
+            <Label text="USUÁRIO" style="-fx-font-family: 'Arial Bold'; -fx-font-size: 14; -fx-text-fill: #075e19;"/>
+            <TextField fx:id="txtUsuario"
+                       promptText="Digite o seu usuário"
+                       style="-fx-border-color: #006d57; -fx-border-radius: 4; -fx-background-radius: 4; -fx-font-size: 14; -fx-padding: 10;"
+                       maxWidth="Infinity"/>
+
+            <!-- CAMPO: SENHA -->
+            <Label text="SENHA" style="-fx-font-family: 'Arial Bold'; -fx-font-size: 14; -fx-text-fill: #075e19;"/>
+            <PasswordField fx:id="txtSenha"
+                           promptText="Digite a sua senha"
+                           style="-fx-border-color: #006d57; -fx-border-radius: 4; -fx-background-radius: 4; -fx-font-size: 14; -fx-padding: 10;"
+                           maxWidth="Infinity"/>
+
+            <!-- BOTÃO ENTRAR -->
+            <Button fx:id="btnEntrar"
+                    text="ENTRAR"
+                    onAction="#handleLogin"
+                    style="-fx-background-color: #006d57; -fx-text-fill: WHITE; -fx-background-radius: 4; -fx-font-family: 'System Bold'; -fx-font-size: 16; -fx-padding: 15; -fx-cursor: hand;"
+                    maxWidth="Infinity"
+                    prefHeight="45.0"/>
+
+            <!-- LINK ESQUECEU SENHA -->
+            <Hyperlink fx:id="linkEsqueceu"
+                       text="Esqueceu-se da senha?"
+                       onAction="#esqueceuSenha"
+                       style="-fx-text-fill: #006d57; -fx-padding: 5;"/>
+          </children>
+        </VBox>
+
+        <!-- ESPAÇO VAZIO PARA EMPURRAR CONTEÚDO -->
+        <Region VBox.vgrow="ALWAYS"/>
+      </children>
+    </VBox>
+  </center>
+
+  <!-- RODAPÉ -->
+  <bottom>
+    <HBox prefHeight="78.0" style="-fx-background-color: #006d57; -fx-alignment: CENTER;">
+      <children>
+        <ImageView fitHeight="72.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true" HBox.hgrow="NEVER">
+          <image>
+            <Image url="@../../../../Pictures/logo.jpg"/>
+          </image>
+        </ImageView>
+        <VBox style="-fx-alignment: CENTER; -fx-spacing: 2; -fx-padding: 0 15;" HBox.hgrow="ALWAYS">
+          <children>
+            <Label text="Banco" textFill="WHITE" style="-fx-font-family: 'Times New Roman'; -fx-font-size: 24; -fx-alignment: CENTER;" HBox.hgrow="ALWAYS"/>
+            <Label text="UBUNTUU" textFill="WHITE" style="-fx-font-family: 'Times New Roman Bold'; -fx-font-size: 24; -fx-alignment: CENTER;" HBox.hgrow="ALWAYS"/>
+            <Label text="COMUNIDADE E SABEDORIA" textFill="#c5a059" style="-fx-font-family: 'Times New Roman'; -fx-font-size: 14; -fx-alignment: CENTER;" HBox.hgrow="ALWAYS"/>
+          </children>
+        </VBox>
+      </children>
+    </HBox>
+  </bottom>
+</BorderPane>
