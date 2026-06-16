@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane fx:controller="app.CriarContaController"
+            stylesheets="@styles.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+  <!-- Cabeçalho reutilizável (sem botões — funciona com fx:include) -->
+  <top><fx:include source="parts/Header.fxml"/></top>
+
+  <center>
+    <VBox alignment="TOP_CENTER" spacing="18" style="-fx-padding: 40 60;">
+
+      <Label text="CRIAR UTILIZADOR" styleClass="login-section-title" maxWidth="Infinity"/>
+      <Label text="Preencha os dados para criar um novo acesso ao sistema."
+             styleClass="form-subtitle" maxWidth="Infinity" wrapText="true"/>
+
+      <!-- Nome completo -->
+      <VBox spacing="4">
+        <Label text="Nome completo *" styleClass="form-label"/>
+        <TextField fx:id="txtNome" promptText="Ex: João Silva"
+                   styleClass="form-field" maxWidth="Infinity"/>
+      </VBox>
+
+      <!-- Username -->
+      <VBox spacing="4">
+        <Label text="Nome de utilizador *" styleClass="form-label"/>
+        <TextField fx:id="txtUsername" promptText="Ex: joao.silva (sem espaços)"
+                   styleClass="form-field" maxWidth="Infinity"/>
+      </VBox>
+
+      <!-- Nível de acesso -->
+      <VBox spacing="4">
+        <Label text="Nível de acesso *" styleClass="form-label"/>
+        <ComboBox fx:id="cmbNivel" maxWidth="Infinity" styleClass="form-combo"/>
+      </VBox>
+
+      <!-- Senha + Confirmação lado a lado -->
+      <HBox spacing="15">
+        <VBox HBox.hgrow="ALWAYS" spacing="4">
+          <Label text="Senha *" styleClass="form-label"/>
+          <PasswordField fx:id="txtSenha" promptText="Mínimo 6 caracteres"
+                         styleClass="form-field"/>
+        </VBox>
+        <VBox HBox.hgrow="ALWAYS" spacing="4">
+          <Label text="Confirmar senha *" styleClass="form-label"/>
+          <PasswordField fx:id="txtConfirmarSenha" promptText="Repita a senha"
+                         styleClass="form-field"/>
+        </VBox>
+      </HBox>
+
+      <!-- Feedback -->
+      <Label fx:id="lblMensagem" text="" wrapText="true" maxWidth="Infinity"/>
+
+      <!-- Botões -->
+      <HBox spacing="15">
+        <Button text="VOLTAR AO LOGIN"  onAction="#voltarLogin"
+                styleClass="form-back-btn"   HBox.hgrow="SOMETIMES"/>
+        <Button text="CRIAR UTILIZADOR" onAction="#submeterFormulario"
+                styleClass="form-submit-btn" maxWidth="Infinity" HBox.hgrow="ALWAYS"/>
+      </HBox>
+    </VBox>
+  </center>
+
+  <!-- Rodapé simples sem botão (sem problema de fx:include) -->
+  <bottom>
+    <HBox styleClass="footer-bar">
+      <Label text="Banco UBUNTUU — COMUNIDADE E SABEDORIA" styleClass="header-subtitle"/>
+    </HBox>
+  </bottom>
+</BorderPane>

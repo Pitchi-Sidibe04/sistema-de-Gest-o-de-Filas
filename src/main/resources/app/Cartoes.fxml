@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:controller="app.CartoesController"
+            stylesheets="@styles.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+  <top>
+    <HBox styleClass="header-pane">
+      <ImageView fitHeight="50.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+        <image><Image url="@img/logo.jpg"/></image>
+      </ImageView>
+      <VBox styleClass="header-inner" HBox.hgrow="ALWAYS">
+        <Label text="Banco"                   styleClass="header-title"      maxWidth="Infinity"/>
+        <Label text="UBUNTUU"                styleClass="header-title-bold"  maxWidth="Infinity"/>
+        <Label text="COMUNIDADE E SABEDORIA"  styleClass="header-subtitle"   maxWidth="Infinity"/>
+      </VBox>
+    </HBox>
+  </top>
+
+  <center>
+    <VBox styleClass="content-pane">
+      <Label text="POR FAVOR, RETIRE APENAS UMA SENHA" styleClass="alert-label"      maxWidth="Infinity"/>
+      <Label text="SELECIONE O TIPO DE CARTÃO"         styleClass="instruction-label" maxWidth="Infinity"/>
+
+      <VBox spacing="8" style="-fx-padding: 12 0 0 0;">
+
+        <Button fx:id="multicaixa" onAction="#multicaixa" styleClass="service-button" maxWidth="Infinity">
+          <graphic>
+            <HBox spacing="10" style="-fx-alignment: CENTER_LEFT;">
+              <StackPane styleClass="service-key-box"><Label text="C" styleClass="service-key-letter"/></StackPane>
+              <Label text="Cartão Multicaixa" styleClass="service-label" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+              <Label text="›" styleClass="service-arrow"/>
+            </HBox>
+          </graphic>
+        </Button>
+
+        <Button onAction="#visa" styleClass="service-button" maxWidth="Infinity">
+          <graphic>
+            <HBox spacing="10" style="-fx-alignment: CENTER_LEFT;">
+              <StackPane styleClass="service-key-box"><Label text="C" styleClass="service-key-letter"/></StackPane>
+              <Label text="Cartão VISA" styleClass="service-label" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+              <Label text="›" styleClass="service-arrow"/>
+            </HBox>
+          </graphic>
+        </Button>
+
+        <Button onAction="#mastercard" styleClass="service-button" maxWidth="Infinity">
+          <graphic>
+            <HBox spacing="10" style="-fx-alignment: CENTER_LEFT;">
+              <StackPane styleClass="service-key-box"><Label text="C" styleClass="service-key-letter"/></StackPane>
+              <Label text="Cartão Mastercard" styleClass="service-label" HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+              <Label text="›" styleClass="service-arrow"/>
+            </HBox>
+          </graphic>
+        </Button>
+
+      </VBox>
+
+      <Region VBox.vgrow="ALWAYS"/>
+      <HBox styleClass="footer-action-bar">
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="VOLTAR" onAction="#voltarMenu" styleClass="back-button"/>
+      </HBox>
+    </VBox>
+  </center>
+
+  <bottom>
+    <HBox styleClass="footer-pane">
+      <ImageView fitHeight="50.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+        <image><Image url="@img/logo.jpg"/></image>
+      </ImageView>
+      <VBox styleClass="header-inner" HBox.hgrow="ALWAYS">
+        <Label text="Banco"                   styleClass="header-title"      maxWidth="Infinity"/>
+        <Label text="UBUNTUU"                styleClass="header-title-bold"  maxWidth="Infinity"/>
+        <Label text="COMUNIDADE E SABEDORIA"  styleClass="header-subtitle"   maxWidth="Infinity"/>
+      </VBox>
+    </HBox>
+  </bottom>
+</BorderPane>

@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane stylesheets="@styles.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="app.EcraChamadaController">
+
+  <top>
+    <HBox styleClass="ec-header">
+      <ImageView fitHeight="54" fitWidth="44" pickOnBounds="true" preserveRatio="true">
+        <image><Image url="@img/logo.jpg"/></image>
+      </ImageView>
+      <VBox styleClass="header-inner" spacing="1">
+        <Label text="Banco"                   styleClass="ec-header-banco"/>
+        <Label text="UBUNTUU"                styleClass="ec-header-banco-bold"/>
+        <Label text="COMUNIDADE E SABEDORIA"  styleClass="ec-header-slogan"/>
+      </VBox>
+
+      <VBox styleClass="ec-separator-v" style="-fx-margin: 0 16;"/>
+
+      <VBox HBox.hgrow="ALWAYS" alignment="CENTER_LEFT" spacing="2">
+        <Label text="ECRÃ DE CHAMADA"               styleClass="ec-titulo"/>
+        <Label text="Sala de Espera — Banco Ubuntuu" styleClass="ec-subtitulo"/>
+      </VBox>
+
+      <VBox alignment="CENTER_RIGHT" spacing="2">
+        <Label fx:id="lblHora" text="00:00"     styleClass="ec-clock-time"/>
+        <Label fx:id="lblData" text="--/--/----" styleClass="ec-clock-date"/>
+      </VBox>
+    </HBox>
+  </top>
+
+  <center>
+    <VBox styleClass="ec-content">
+
+      <HBox spacing="14" VBox.vgrow="ALWAYS">
+
+        <!-- Balcões em atendimento (fx:id usados pelo controller) -->
+        <VBox styleClass="ec-card" HBox.hgrow="ALWAYS">
+          <VBox styleClass="ec-card-header">
+            <Label text="BALCÕES EM ATENDIMENTO" styleClass="ec-card-header-title"/>
+          </VBox>
+          <HBox styleClass="ec-card-body" spacing="20" alignment="TOP_CENTER">
+
+            <!-- Balcão 1 -->
+            <VBox fx:id="boxLetra1" styleClass="ec-balcao-col">
+              <Label text="Balcão 1" styleClass="ec-balcao-label"/>
+              <VBox styleClass="ec-balcao-box" alignment="CENTER">
+                <Label fx:id="lblLetra1" text="—" styleClass="ec-balcao-letra"/>
+              </VBox>
+              <VBox styleClass="ec-balcao-separador"/>
+              <Label fx:id="lblNumero1"  text="---" styleClass="ec-balcao-numero"/>
+              <Label fx:id="lblServico1" text=""    styleClass="ec-balcao-servico" maxWidth="100" wrapText="true"/>
+            </VBox>
+
+            <!-- Balcão 2 -->
+            <VBox fx:id="boxLetra2" styleClass="ec-balcao-col">
+              <Label text="Balcão 2" styleClass="ec-balcao-label"/>
+              <VBox styleClass="ec-balcao-box-vazio" alignment="CENTER">
+                <Label fx:id="lblLetra2" text="—" styleClass="ec-balcao-letra"/>
+              </VBox>
+              <VBox styleClass="ec-balcao-separador"/>
+              <Label fx:id="lblNumero2"  text="---" styleClass="ec-balcao-numero"/>
+              <Label fx:id="lblServico2" text=""    styleClass="ec-balcao-servico" maxWidth="100" wrapText="true"/>
+            </VBox>
+
+            <!-- Balcão 3 -->
+            <VBox fx:id="boxLetra3" styleClass="ec-balcao-col">
+              <Label text="Balcão 3" styleClass="ec-balcao-label"/>
+              <VBox styleClass="ec-balcao-box-vazio" alignment="CENTER">
+                <Label fx:id="lblLetra3" text="—" styleClass="ec-balcao-letra"/>
+              </VBox>
+              <VBox styleClass="ec-balcao-separador"/>
+              <Label fx:id="lblNumero3"  text="---" styleClass="ec-balcao-numero"/>
+              <Label fx:id="lblServico3" text=""    styleClass="ec-balcao-servico" maxWidth="100" wrapText="true"/>
+            </VBox>
+
+            <!-- Balcão 4 -->
+            <VBox fx:id="boxLetra4" styleClass="ec-balcao-col">
+              <Label text="Balcão 4" styleClass="ec-balcao-label"/>
+              <VBox styleClass="ec-balcao-box-vazio" alignment="CENTER">
+                <Label fx:id="lblLetra4" text="—" styleClass="ec-balcao-letra"/>
+              </VBox>
+              <VBox styleClass="ec-balcao-separador"/>
+              <Label fx:id="lblNumero4"  text="---" styleClass="ec-balcao-numero"/>
+              <Label fx:id="lblServico4" text=""    styleClass="ec-balcao-servico" maxWidth="100" wrapText="true"/>
+            </VBox>
+
+          </HBox>
+        </VBox>
+
+        <!-- Próximas senhas -->
+        <VBox styleClass="ec-card" prefWidth="260" minWidth="210">
+          <VBox styleClass="ec-card-header">
+            <Label text="PRÓXIMAS SENHAS" styleClass="ec-card-header-title"/>
+          </VBox>
+          <VBox fx:id="boxProximas" styleClass="ec-card-body" spacing="8"/>
+        </VBox>
+
+      </HBox>
+
+      <!-- Rodapé -->
+      <HBox styleClass="ec-footer">
+        <Label text="ℹ" styleClass="ec-footer-icon"/>
+        <Label text="Atenção ao painel para ser chamado." styleClass="ec-footer-msg" HBox.hgrow="ALWAYS"/>
+        <VBox alignment="CENTER_RIGHT" spacing="1">
+          <Label text="Sistema de Senhas" styleClass="ec-footer-sub"/>
+          <Label text="Banco Ubuntuu — Comunidade e Sabedoria"
+                 style="-fx-font-size: 11; -fx-text-fill: #888;"/>
+        </VBox>
+      </HBox>
+
+    </VBox>
+  </center>
+
+</BorderPane>

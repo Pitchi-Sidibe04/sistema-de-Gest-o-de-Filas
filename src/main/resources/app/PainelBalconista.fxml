@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane stylesheets="@styles.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="app.PainelBalconistaController">
+
+  <!-- SIDEBAR -->
+  <left>
+    <VBox styleClass="balc-sidebar" prefWidth="200">
+      <VBox styleClass="balc-sidebar-logo" alignment="CENTER">
+        <ImageView fitHeight="52" fitWidth="42" pickOnBounds="true" preserveRatio="true">
+          <image><Image url="@img/logo.jpg"/></image>
+        </ImageView>
+        <Label text="Banco"   styleClass="balc-sidebar-bank"/>
+        <Label text="UBUNTUU" styleClass="balc-sidebar-bank-bold"/>
+        <Label text="Comunidade e Sabedoria" styleClass="balc-sidebar-slogan"/>
+      </VBox>
+
+      <Button text="⊞  Painel"       styleClass="balc-nav-btn, balc-nav-btn-active" maxWidth="Infinity"/>
+      <Button text="👤  Atendimentos" styleClass="balc-nav-btn" maxWidth="Infinity" onAction="#abrirAtendimentos"/>
+      <Button text="⏱  Histórico"     styleClass="balc-nav-btn" maxWidth="Infinity" onAction="#abrirHistorico"/>
+
+      <Region VBox.vgrow="ALWAYS"/>
+      <Button text="↩  Sair" styleClass="balc-nav-btn" maxWidth="Infinity" onAction="#terminarSessao"
+              style="-fx-border-color: rgba(255,255,255,0.10) transparent transparent transparent; -fx-border-width: 1;"/>
+    </VBox>
+  </left>
+
+  <!-- CONTEÚDO -->
+  <center>
+    <VBox styleClass="balc-main">
+
+      <!-- Topbar -->
+      <HBox styleClass="balc-topbar" VBox.vgrow="NEVER">
+        <VBox spacing="2" HBox.hgrow="ALWAYS">
+          <Label text="Painel do Balconista" styleClass="balc-page-title"/>
+          <Label fx:id="lblBemVindo" text="Bom dia" styleClass="balc-page-subtitle"/>
+        </VBox>
+        <VBox styleClass="balc-clock-box" alignment="CENTER_RIGHT">
+          <Label fx:id="lblHora" text="00:00" styleClass="balc-clock-time"/>
+          <Label fx:id="lblData" text="--/--/----" styleClass="balc-clock-date"/>
+        </VBox>
+      </HBox>
+
+      <!-- Grade: Atendendo + Senhas -->
+      <HBox spacing="16" VBox.vgrow="ALWAYS">
+
+        <!-- Cartão ATENDENDO -->
+        <VBox styleClass="balc-card" HBox.hgrow="ALWAYS" spacing="14">
+          <Label text="ATENDENDO" styleClass="balc-card-title"/>
+
+          <HBox alignment="CENTER" spacing="16" style="-fx-padding: 10 0 6 0;">
+            <StackPane>
+              <VBox styleClass="balc-atend-badge" alignment="CENTER">
+                <Label fx:id="lblLetraAtual" text="—" styleClass="balc-atend-letra"/>
+              </VBox>
+            </StackPane>
+            <VBox styleClass="balc-divisor-v"/>
+            <VBox alignment="CENTER" spacing="2">
+              <Label fx:id="lblNumeroAtual"  text="000"             styleClass="balc-atend-num"/>
+              <Label fx:id="lblServicoAtual" text="Sem atendimento" styleClass="balc-atend-serv"/>
+            </VBox>
+          </HBox>
+
+          <VBox alignment="CENTER" spacing="2">
+            <Label text="⏱  Tempo de atendimento" styleClass="balc-timer-label"/>
+            <Label fx:id="lblTempoAtendimento" text="00:00:00" styleClass="balc-timer-val"/>
+          </VBox>
+
+          <Region VBox.vgrow="ALWAYS"/>
+
+          <Button fx:id="btnChamarProxima" text="▶  Chamar Próxima"
+                  onAction="#chamarProxima" styleClass="balc-btn-call" maxWidth="Infinity"/>
+          <Button fx:id="btnFinalizar" text="■  Finalizar Atendimento"
+                  onAction="#finalizarAtendimento" styleClass="balc-btn-finish"
+                  maxWidth="Infinity" disable="true"/>
+          <Button fx:id="btnAusente" text="✕  Cliente Ausente"
+                  onAction="#clienteAusente" styleClass="balc-btn-absent"
+                  maxWidth="Infinity" disable="true"/>
+        </VBox>
+
+        <!-- Senhas -->
+        <VBox spacing="12" prefWidth="280" minWidth="230">
+          <VBox styleClass="balc-card" spacing="8">
+            <Label text="PRÓXIMAS SENHAS (até 3)" styleClass="balc-section-title"/>
+            <VBox fx:id="boxProximas" spacing="6"/>
+          </VBox>
+          <VBox styleClass="balc-card" spacing="8">
+            <Label text="ÚLTIMAS SENHAS (até 3)" styleClass="balc-section-title"/>
+            <VBox fx:id="boxUltimas" spacing="6"/>
+          </VBox>
+        </VBox>
+
+      </HBox>
+
+      <!-- Rodapé -->
+      <HBox styleClass="balc-footer" VBox.vgrow="NEVER">
+        <Label text="ℹ" style="-fx-font-size: 16; -fx-text-fill: #006d57;"/>
+        <Label text="Atender com atenção faz a diferença." styleClass="balc-footer-info" HBox.hgrow="ALWAYS"/>
+        <VBox alignment="CENTER_RIGHT" spacing="1">
+          <Label text="Sistema de Senhas" styleClass="balc-footer-brand"/>
+          <Label text="Banco Ubuntuu — Comunidade e Sabedoria"
+                 style="-fx-font-size: 10; -fx-text-fill: #888;"/>
+        </VBox>
+      </HBox>
+
+    </VBox>
+  </center>
+
+</BorderPane>

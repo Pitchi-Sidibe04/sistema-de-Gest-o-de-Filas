@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<BorderPane fx:controller="app.SenhaGeradaController"
+            stylesheets="@styles.css"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml/1">
+
+  <top><fx:include source="parts/Header.fxml"/></top>
+
+  <center>
+    <!-- StackPane centra o cartão verticalmente mesmo em janelas altas -->
+    <StackPane>
+      <VBox styleClass="senha-card" maxWidth="400.0"
+            StackPane.alignment="CENTER">
+
+        <!-- Logo senha.png -->
+        <HBox alignment="CENTER">
+          <ImageView fitHeight="52.0" fitWidth="52.0"
+                     pickOnBounds="true" preserveRatio="true">
+            <image><Image url="@img/senha.png"/></image>
+          </ImageView>
+        </HBox>
+
+        <Label text="A SUA SENHA É"
+               styleClass="senha-title" maxWidth="Infinity"/>
+
+        <!-- Código em grande destaque -->
+        <Label fx:id="lblCodigoSenha" text="---"
+               styleClass="senha-code" maxWidth="Infinity"/>
+
+        <Label fx:id="lblServico"  text="" styleClass="senha-servico"  maxWidth="Infinity"/>
+        <Label fx:id="lblHora"     text="" styleClass="senha-hora"     maxWidth="Infinity"/>
+        <Label fx:id="lblEmEspera" text="" styleClass="senha-espera"   maxWidth="Infinity"/>
+
+        <Label text="Por favor aguarde a sua vez"
+               styleClass="senha-aviso" maxWidth="Infinity"/>
+
+        <Label fx:id="lblPdfGuardado" text=""
+               styleClass="senha-pdf-path" maxWidth="Infinity"/>
+
+        <Region VBox.vgrow="ALWAYS" minHeight="20"/>
+
+        <Button text="VOLTAR AO MENU" onAction="#voltarMenu"
+                styleClass="primary-button" maxWidth="Infinity"/>
+      </VBox>
+    </StackPane>
+  </center>
+
+  <bottom>
+    <HBox styleClass="footer-pane">
+      <ImageView fitHeight="60.0" fitWidth="50.0"
+                 pickOnBounds="true" preserveRatio="true">
+        <image><Image url="@img/logo.jpg"/></image>
+      </ImageView>
+      <VBox styleClass="header-inner" HBox.hgrow="ALWAYS">
+        <Label text="Banco"                  styleClass="header-title"      maxWidth="Infinity"/>
+        <Label text="UBUNTUU"                styleClass="header-title-bold"  maxWidth="Infinity"/>
+        <Label text="COMUNIDADE E SABEDORIA" styleClass="header-subtitle"    maxWidth="Infinity"/>
+      </VBox>
+    </HBox>
+  </bottom>
+</BorderPane>

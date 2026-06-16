@@ -1,0 +1,728 @@
+/* ============================================================
+   SGF — Banco UBUNTUU — Folha de estilos global v2
+   Responsivo, compacto e moderno
+   ============================================================ */
+
+/* ── VARIÁVEIS / TOKENS ───────────────────────────────────── */
+/* verde principal  #006d57  |  dourado #c5a059  |  fundo #f4f6f5 */
+
+/* ── ROOT ─────────────────────────────────────────────────── */
+.root {
+    -fx-background-color: #f4f6f5;
+    -fx-font-family: "Segoe UI", "System", Arial;
+    -fx-font-size: 13px;
+}
+
+/* ── HEADER ───────────────────────────────────────────────── */
+.header-pane {
+    -fx-background-color: #006d57;
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-height: 72;
+    -fx-min-height: 72;
+    -fx-padding: 0 16 0 16;
+    -fx-spacing: 12;
+}
+.header-title      { -fx-font-size: 16; -fx-text-fill: white; }
+.header-title-bold { -fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: white; }
+.header-subtitle   { -fx-font-size: 10; -fx-font-weight: bold; -fx-text-fill: #c5a059; }
+.header-inner      { -fx-alignment: CENTER_LEFT; -fx-spacing: 1; }
+
+/* ── FOOTER ───────────────────────────────────────────────── */
+.footer-pane {
+    -fx-background-color: #006d57;
+    -fx-alignment: CENTER_LEFT;
+    -fx-pref-height: 68;
+    -fx-min-height: 68;
+    -fx-padding: 0 16;
+    -fx-spacing: 12;
+}
+.footer-bar {
+    -fx-background-color: #006d57;
+    -fx-pref-height: 44;
+    -fx-alignment: CENTER;
+}
+.footer-action-bar {
+    -fx-alignment: CENTER_RIGHT;
+    -fx-padding: 8 12;
+    -fx-pref-height: 44;
+}
+
+/* ── CONTENT PANE ─────────────────────────────────────────── */
+.content-pane {
+    -fx-alignment: TOP_CENTER;
+    -fx-spacing: 12;
+    -fx-padding: 20 20 16 20;
+    -fx-background-color: #f4f6f5;
+}
+
+/* ── MENSAGENS DE INSTRUÇÃO ───────────────────────────────── */
+.alert-label {
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-text-fill: #d32f2f;
+    -fx-alignment: CENTER;
+    -fx-wrap-text: true;
+    -fx-padding: 6 0 2 0;
+}
+.instruction-label {
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-text-fill: #006d57;
+    -fx-alignment: CENTER;
+    -fx-wrap-text: true;
+    -fx-padding: 0 0 6 0;
+}
+.alert-separator {
+    -fx-background-color: #d8e4e1;
+    -fx-pref-height: 1;
+    -fx-max-width: Infinity;
+}
+
+/* ── LABELS CHAVE ─────────────────────────────────────────── */
+.key-label       { -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: white; }
+.key-label-gold  { -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #c5a059; }
+.key-label-amber { -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #b8860b; }
+
+/* ── BOTÕES DE SERVIÇO (Quiosque) ─────────────────────────── */
+.service-button {
+    -fx-background-color: #006d57;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-padding: 0 16;
+    -fx-pref-height: 54;
+    -fx-min-height: 54;
+    -fx-background-radius: 27;
+    -fx-border-radius: 27;
+    -fx-border-color: rgba(255,255,255,0.35);
+    -fx-border-width: 1.5;
+    -fx-alignment: CENTER_LEFT;
+    -fx-cursor: hand;
+}
+.service-button:hover   { -fx-background-color: #005244; }
+.service-button:pressed { -fx-background-color: #004538; }
+
+.service-button-gold {
+    -fx-background-color: #b8860b;
+    -fx-text-fill: white;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-padding: 0 16;
+    -fx-pref-height: 54;
+    -fx-min-height: 54;
+    -fx-background-radius: 27;
+    -fx-border-radius: 27;
+    -fx-border-color: rgba(255,255,255,0.35);
+    -fx-border-width: 1.5;
+    -fx-alignment: CENTER_LEFT;
+    -fx-cursor: hand;
+}
+.service-button-gold:hover { -fx-background-color: #9a6e09; }
+
+.service-key-box {
+    -fx-background-color: transparent;
+    -fx-border-color: rgba(255,255,255,0.8);
+    -fx-border-width: 1.5;
+    -fx-background-radius: 5;
+    -fx-border-radius: 5;
+    -fx-min-width: 36;
+    -fx-min-height: 36;
+    -fx-max-width: 36;
+    -fx-max-height: 36;
+    -fx-alignment: CENTER;
+}
+.service-key-letter {
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.service-arrow {
+    -fx-font-size: 20;
+    -fx-text-fill: rgba(255,255,255,0.7);
+}
+.service-label {
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+.service-row { -fx-alignment: CENTER; }
+
+/* ── BOTÃO VOLTAR ─────────────────────────────────────────── */
+.back-button {
+    -fx-background-color: white;
+    -fx-border-color: #006d57;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 4;
+    -fx-background-radius: 4;
+    -fx-text-fill: #006d57;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-padding: 8 20;
+    -fx-cursor: hand;
+}
+.back-button:hover { -fx-background-color: #e8f5f0; }
+
+/* ── BOTÃO PRIMÁRIO ───────────────────────────────────────── */
+.primary-button {
+    -fx-background-color: #006d57;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-padding: 12 20;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+.primary-button:hover { -fx-background-color: #005244; }
+
+/* ── TELA SENHA GERADA ────────────────────────────────────── */
+.senha-card {
+    -fx-alignment: CENTER;
+    -fx-spacing: 12;
+    -fx-padding: 24 32;
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 14, 0, 0, 3);
+    -fx-max-width: 420;
+}
+.senha-title   { -fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #444; }
+.senha-code {
+    -fx-font-size: 52;
+    -fx-font-weight: bold;
+    -fx-text-fill: #006d57;
+    -fx-border-color: #006d57;
+    -fx-border-width: 2.5;
+    -fx-border-radius: 8;
+    -fx-background-color: #eef7f4;
+    -fx-background-radius: 8;
+    -fx-padding: 14 32;
+    -fx-alignment: CENTER;
+}
+.senha-servico { -fx-font-size: 14; -fx-text-fill: #555; -fx-alignment: CENTER; }
+.senha-hora    { -fx-font-size: 12; -fx-text-fill: #888; -fx-alignment: CENTER; }
+.senha-espera  { -fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #b8860b; -fx-alignment: CENTER; }
+.senha-aviso   { -fx-font-size: 13; -fx-text-fill: #b8860b; -fx-alignment: CENTER; }
+.senha-pdf-path { -fx-font-size: 11; -fx-text-fill: #006d57; -fx-alignment: CENTER; -fx-wrap-text: true; }
+
+/* ── PRIORITÁRIO ──────────────────────────────────────────── */
+.prio-title { -fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #b8860b; -fx-alignment: CENTER; }
+.prio-desc  { -fx-font-size: 12; -fx-text-fill: #444; -fx-alignment: CENTER; -fx-wrap-text: true; -fx-padding: 8; }
+
+/* ── LOGIN ────────────────────────────────────────────────── */
+.login-card {
+    -fx-background-color: white;
+    -fx-background-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.10), 18, 0, 0, 4);
+    -fx-padding: 32 40;
+    -fx-spacing: 16;
+    -fx-max-width: 380;
+    -fx-min-width: 300;
+    -fx-alignment: TOP_CENTER;
+}
+.login-section-title {
+    -fx-font-size: 18;
+    -fx-font-weight: bold;
+    -fx-text-fill: #006d57;
+    -fx-alignment: CENTER;
+    -fx-padding: 0 0 8 0;
+}
+.login-label  { -fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #444; }
+.login-field  {
+    -fx-border-color: #c8d8d4;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-background-color: #fafafa;
+    -fx-font-size: 13;
+    -fx-padding: 9 12;
+    -fx-pref-height: 38;
+    -fx-max-width: Infinity;
+}
+.login-field:focused {
+    -fx-border-color: #006d57;
+    -fx-background-color: white;
+}
+.login-link-text { -fx-font-size: 12; -fx-text-fill: #666; }
+.login-link-gold { -fx-text-fill: #b8860b; -fx-font-weight: bold; }
+.login-separator { -fx-text-fill: #ccc; -fx-font-size: 11; }
+.login-form-box  {
+    -fx-alignment: CENTER;
+    -fx-spacing: 12;
+    -fx-padding: 16;
+    -fx-max-width: 400;
+}
+.login-btn {
+    -fx-background-color: #006d57;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-padding: 11 20;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-max-width: Infinity;
+    -fx-pref-height: 40;
+}
+.login-btn:hover { -fx-background-color: #005244; }
+
+/* ── FORMULÁRIOS (CriarConta) ─────────────────────────────── */
+.form-title      { -fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: #006d57; }
+.form-subtitle   { -fx-font-size: 11; -fx-text-fill: #777; -fx-wrap-text: true; }
+.form-label      { -fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #444; }
+.form-field {
+    -fx-border-color: #c8d8d4;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-background-color: #fafafa;
+    -fx-padding: 8 10;
+    -fx-pref-height: 36;
+    -fx-max-width: Infinity;
+}
+.form-field:focused { -fx-border-color: #006d57; -fx-background-color: white; }
+.form-combo { -fx-border-color: #c8d8d4; -fx-border-radius: 6; -fx-background-radius: 6; }
+.form-submit-btn {
+    -fx-background-color: #006d57;
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-padding: 10 18;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+.form-submit-btn:hover { -fx-background-color: #005244; }
+.form-back-btn {
+    -fx-background-color: transparent;
+    -fx-border-color: #006d57;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: #006d57;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-padding: 10 18;
+    -fx-cursor: hand;
+}
+.form-back-btn:hover { -fx-background-color: #eef7f4; }
+
+/* ── PAINEL BALCONISTA ────────────────────────────────────── */
+.balc-sidebar {
+    -fx-background-color: #07332b;
+    -fx-pref-width: 200;
+    -fx-min-width: 180;
+    -fx-max-width: 220;
+    -fx-padding: 0;
+    -fx-spacing: 0;
+}
+.balc-sidebar-logo {
+    -fx-background-color: #07332b;
+    -fx-padding: 20 16 16 16;
+    -fx-alignment: CENTER;
+    -fx-spacing: 6;
+}
+.balc-sidebar-bank      { -fx-font-size: 13; -fx-text-fill: white; }
+.balc-sidebar-bank-bold { -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: white; }
+.balc-sidebar-slogan    { -fx-font-size: 10; -fx-text-fill: #c5a059; }
+
+.balc-nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #b0c8c2;
+    -fx-font-size: 13;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 20;
+    -fx-pref-height: 48;
+    -fx-max-width: Infinity;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+}
+.balc-nav-btn:hover { -fx-background-color: rgba(255,255,255,0.08); -fx-text-fill: white; }
+.balc-nav-btn-active {
+    -fx-background-color: rgba(197,160,89,0.15);
+    -fx-text-fill: #c5a059;
+    -fx-font-weight: bold;
+    -fx-border-color: #c5a059 transparent transparent transparent;
+    -fx-border-width: 0 0 0 3;
+}
+
+.balc-main {
+    -fx-background-color: #f4f6f5;
+    -fx-padding: 24;
+    -fx-spacing: 16;
+}
+.balc-page-title    { -fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: #1a2e2a; }
+.balc-page-subtitle { -fx-font-size: 13; -fx-text-fill: #666; }
+
+.balc-clock-box {
+    -fx-alignment: CENTER_RIGHT;
+    -fx-spacing: 6;
+}
+.balc-clock-time { -fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #1a2e2a; }
+.balc-clock-date { -fx-font-size: 12; -fx-text-fill: #888; }
+
+.balc-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 20;
+    -fx-spacing: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 12, 0, 0, 2);
+}
+.balc-card-title { -fx-font-size: 13; -fx-font-weight: bold; -fx-text-fill: #555; }
+
+.balc-atend-label  { -fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #888; }
+.balc-atend-badge {
+    -fx-background-color: #07332b;
+    -fx-background-radius: 8;
+    -fx-min-width: 64;
+    -fx-min-height: 64;
+    -fx-max-width: 64;
+    -fx-max-height: 64;
+    -fx-alignment: CENTER;
+}
+.balc-atend-letra  { -fx-font-size: 28; -fx-font-weight: bold; -fx-text-fill: white; }
+.balc-atend-num    { -fx-font-size: 38; -fx-font-weight: bold; -fx-text-fill: #07332b; }
+.balc-atend-serv   { -fx-font-size: 12; -fx-text-fill: #888; -fx-alignment: CENTER; }
+.balc-divisor-v    { -fx-background-color: #c5a059; -fx-pref-width: 2; -fx-pref-height: 50; }
+
+.balc-timer-label  { -fx-font-size: 12; -fx-text-fill: #888; }
+.balc-timer-val    { -fx-font-size: 28; -fx-font-weight: bold; -fx-text-fill: #c5a059; }
+
+.balc-btn-call {
+    -fx-background-color: #006d57;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-padding: 12 20;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-pref-height: 44;
+}
+.balc-btn-call:hover { -fx-background-color: #005244; }
+.balc-btn-call:disabled { -fx-opacity: 0.45; }
+
+.balc-btn-finish {
+    -fx-background-color: #d32f2f;
+    -fx-text-fill: white;
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-padding: 12 20;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-pref-height: 44;
+}
+.balc-btn-finish:hover { -fx-background-color: #b71c1c; }
+.balc-btn-finish:disabled { -fx-opacity: 0.45; }
+
+.balc-btn-absent {
+    -fx-background-color: transparent;
+    -fx-border-color: #b8860b;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #b8860b;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-cursor: hand;
+    -fx-pref-height: 40;
+}
+.balc-btn-absent:hover { -fx-background-color: #fff8e8; }
+.balc-btn-absent:disabled { -fx-opacity: 0.40; }
+
+/* Fila de senhas no painel balconista */
+.balc-senha-row {
+    -fx-background-color: #f8faf9;
+    -fx-background-radius: 8;
+    -fx-border-color: #e4eeeb;
+    -fx-border-radius: 8;
+    -fx-padding: 10 14;
+    -fx-spacing: 12;
+    -fx-alignment: CENTER_LEFT;
+}
+.balc-senha-badge {
+    -fx-background-color: #07332b;
+    -fx-background-radius: 6;
+    -fx-min-width: 38;
+    -fx-min-height: 38;
+    -fx-max-width: 38;
+    -fx-max-height: 38;
+    -fx-alignment: CENTER;
+}
+.balc-senha-badge-letra { -fx-font-size: 16; -fx-font-weight: bold; -fx-text-fill: white; }
+.balc-senha-num  { -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #07332b; }
+.balc-senha-serv { -fx-font-size: 12; -fx-text-fill: #777; }
+.balc-senha-time { -fx-font-size: 11; -fx-text-fill: #aaa; }
+.balc-section-title {
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555;
+    -fx-padding: 0 0 4 0;
+}
+
+.balc-footer {
+    -fx-background-color: #f0f4f3;
+    -fx-border-color: #dde8e5 transparent transparent transparent;
+    -fx-border-width: 1;
+    -fx-padding: 10 24;
+    -fx-spacing: 12;
+    -fx-alignment: CENTER_LEFT;
+}
+.balc-footer-info { -fx-font-size: 12; -fx-text-fill: #555; }
+.balc-footer-brand { -fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #006d57; }
+
+/* ── PAINEL GERENTE ───────────────────────────────────────── */
+.gerente-sidebar {
+    -fx-background-color: #07332b;
+    -fx-pref-width: 210;
+    -fx-min-width: 190;
+    -fx-spacing: 0;
+    -fx-padding: 0;
+}
+.gerente-sidebar-top {
+    -fx-padding: 20 16 20 16;
+    -fx-alignment: CENTER;
+    -fx-spacing: 4;
+}
+.gerente-brand      { -fx-font-size: 14; -fx-text-fill: white; }
+.gerente-brand-bold { -fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: white; }
+.gerente-brand-sub  { -fx-font-size: 10; -fx-text-fill: #c5a059; }
+.gerente-user-area  {
+    -fx-padding: 12 16;
+    -fx-border-color: rgba(255,255,255,0.10) transparent transparent transparent;
+    -fx-border-width: 1;
+}
+.gerente-user-name  { -fx-font-size: 13; -fx-font-weight: bold; -fx-text-fill: white; }
+.gerente-user-role  { -fx-font-size: 11; -fx-text-fill: #c5a059; }
+
+.gerente-nav-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #a0bfb8;
+    -fx-font-size: 13;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 20;
+    -fx-pref-height: 46;
+    -fx-max-width: Infinity;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+    -fx-background-radius: 0;
+}
+.gerente-nav-btn:hover   { -fx-background-color: rgba(255,255,255,0.07); -fx-text-fill: white; }
+.gerente-nav-btn-active  { -fx-background-color: rgba(197,160,89,0.15); -fx-text-fill: #c5a059; -fx-font-weight: bold; }
+
+.gerente-main   { -fx-background-color: #f4f6f5; -fx-padding: 24; -fx-spacing: 16; }
+.gerente-topbar { -fx-alignment: CENTER_LEFT; -fx-spacing: 12; -fx-pref-height: 56; }
+.gerente-page-title    { -fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: #1a2e2a; }
+.gerente-page-subtitle { -fx-font-size: 13; -fx-text-fill: #777; }
+
+.gerente-btn-update {
+    -fx-background-color: #006d57;
+    -fx-text-fill: white;
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+    -fx-padding: 9 18;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+}
+.gerente-btn-update:hover { -fx-background-color: #005244; }
+
+/* Cartões de estatística */
+.stat-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 16 20;
+    -fx-spacing: 4;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);
+}
+.stat-label { -fx-font-size: 12; -fx-text-fill: #888; }
+.stat-value { -fx-font-size: 30; -fx-font-weight: bold; -fx-text-fill: #1a2e2a; }
+.stat-sub   { -fx-font-size: 11; -fx-text-fill: #aaa; }
+
+/* Tabelas gerente */
+.gerente-table-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 16 18;
+    -fx-spacing: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);
+}
+.gerente-table-title { -fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #1a2e2a; }
+.gerente-table-sub   { -fx-font-size: 11; -fx-text-fill: #999; }
+.gerente-table-head  { -fx-font-size: 11; -fx-font-weight: bold; -fx-text-fill: #999; }
+.gerente-table-row   {
+    -fx-padding: 8 0;
+    -fx-border-color: transparent transparent #f0f0f0 transparent;
+    -fx-border-width: 1;
+}
+.gerente-table-cell  { -fx-font-size: 13; -fx-text-fill: #333; }
+
+/* Badges de status */
+.badge-atendida  { -fx-background-color: #e8f5e9; -fx-text-fill: #2e7d32; -fx-font-size: 11; -fx-font-weight: bold; -fx-padding: 3 8; -fx-background-radius: 4; }
+.badge-ausente   { -fx-background-color: #fff3e0; -fx-text-fill: #e65100; -fx-font-size: 11; -fx-font-weight: bold; -fx-padding: 3 8; -fx-background-radius: 4; }
+.badge-ativado   { -fx-background-color: #e8f5e9; -fx-text-fill: #2e7d32; -fx-font-size: 11; -fx-padding: 3 8; -fx-background-radius: 4; }
+.badge-desativ   { -fx-background-color: #fce4ec; -fx-text-fill: #c62828; -fx-font-size: 11; -fx-padding: 3 8; -fx-background-radius: 4; }
+
+/* Cartões coloridos (legacy compat) */
+.card-green  { -fx-alignment: CENTER; -fx-padding: 6 12; -fx-background-color: #e8f5f0; -fx-background-radius: 6; -fx-border-color: #006d57; -fx-border-radius: 6; }
+.card-amber  { -fx-alignment: CENTER; -fx-padding: 6 12; -fx-background-color: #fff8e8; -fx-background-radius: 6; -fx-border-color: #b8860b; -fx-border-radius: 6; }
+.card-blue   { -fx-alignment: CENTER; -fx-padding: 6 12; -fx-background-color: #e8f0ff; -fx-background-radius: 6; -fx-border-color: #3355aa; -fx-border-radius: 6; }
+.card-purple { -fx-alignment: CENTER; -fx-padding: 6 12; -fx-background-color: #f0e8ff; -fx-background-radius: 6; -fx-border-color: #773399; -fx-border-radius: 6; }
+.card-num-green  { -fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: #006d57; }
+.card-num-amber  { -fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: #b8860b; }
+.card-num-blue   { -fx-font-size: 22; -fx-font-weight: bold; -fx-text-fill: #3355aa; }
+.card-num-purple { -fx-font-size: 18; -fx-font-weight: bold; -fx-text-fill: #773399; }
+.card-lbl  { -fx-font-size: 11; -fx-text-fill: #666; }
+
+/* Gerente botões de ação (compat) */
+.gerente-btn-call   { -fx-background-color: #006d57; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 7 12; -fx-background-radius: 4; -fx-cursor: hand; }
+.gerente-btn-absent { -fx-background-color: #b8860b; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 7 12; -fx-background-radius: 4; -fx-cursor: hand; }
+.gerente-btn-done   { -fx-background-color: #3355aa; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 7 12; -fx-background-radius: 4; -fx-cursor: hand; }
+.gerente-btn-excel  { -fx-background-color: #217346; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 7 12; -fx-background-radius: 4; -fx-cursor: hand; }
+
+/* Dica do dia */
+.dica-box {
+    -fx-background-color: #fffbf0;
+    -fx-border-color: #f0cc70;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 12 16;
+    -fx-spacing: 10;
+    -fx-alignment: CENTER_LEFT;
+}
+.dica-title { -fx-font-size: 13; -fx-font-weight: bold; -fx-text-fill: #b8860b; }
+.dica-text  { -fx-font-size: 12; -fx-text-fill: #666; -fx-wrap-text: true; }
+
+/* ── ECRÃ DE CHAMADA (Sala de Espera) ────────────────────── */
+.ec-header {
+    -fx-background-color: #006d57;
+    -fx-pref-height: 100;
+    -fx-min-height: 100;
+    -fx-padding: 0 24;
+    -fx-spacing: 20;
+    -fx-alignment: CENTER_LEFT;
+}
+.ec-header-banco      { -fx-font-size: 20; -fx-text-fill: white; }
+.ec-header-banco-bold { -fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: white; }
+.ec-header-slogan     { -fx-font-size: 11; -fx-text-fill: #c5a059; }
+.ec-separator-v       { -fx-background-color: rgba(255,255,255,0.22); -fx-pref-width: 2; -fx-min-width: 2; -fx-max-width: 2; }
+.ec-titulo    { -fx-font-size: 28; -fx-font-weight: bold; -fx-text-fill: white; }
+.ec-subtitulo { -fx-font-size: 13; -fx-text-fill: #d0eae4; }
+
+.ec-clock-circle {
+    -fx-background-color: transparent;
+    -fx-border-color: #c5a059;
+    -fx-border-width: 1.5;
+    -fx-background-radius: 50;
+    -fx-border-radius: 50;
+    -fx-min-width: 38;
+    -fx-min-height: 38;
+    -fx-max-width: 38;
+    -fx-max-height: 38;
+    -fx-alignment: CENTER;
+}
+.ec-clock-icon { -fx-font-size: 18; -fx-text-fill: #c5a059; }
+.ec-clock-time { -fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: white; }
+.ec-clock-date { -fx-font-size: 12; -fx-text-fill: #c5a059; }
+
+.ec-content { -fx-background-color: #eef2f1; -fx-padding: 16; -fx-spacing: 14; }
+
+.ec-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.06), 10, 0, 0, 2);
+}
+.ec-card-header {
+    -fx-background-color: #07332b;
+    -fx-background-radius: 10 10 0 0;
+    -fx-padding: 10;
+    -fx-alignment: CENTER;
+}
+.ec-card-header-title { -fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: white; }
+.ec-card-body { -fx-padding: 18; -fx-spacing: 10; }
+
+.ec-balcao-col   { -fx-alignment: TOP_CENTER; -fx-spacing: 10; }
+.ec-balcao-label { -fx-font-size: 13; -fx-font-weight: bold; -fx-text-fill: #07332b; }
+.ec-balcao-box {
+    -fx-background-color: #07332b;
+    -fx-background-radius: 8;
+    -fx-min-width: 76;
+    -fx-min-height: 76;
+    -fx-max-width: 76;
+    -fx-max-height: 76;
+    -fx-alignment: CENTER;
+}
+.ec-balcao-box-vazio {
+    -fx-background-color: #cdd6d3;
+    -fx-background-radius: 8;
+    -fx-min-width: 76;
+    -fx-min-height: 76;
+    -fx-max-width: 76;
+    -fx-max-height: 76;
+    -fx-alignment: CENTER;
+}
+.ec-balcao-letra    { -fx-font-size: 36; -fx-font-weight: bold; -fx-text-fill: white; }
+.ec-balcao-separador { -fx-background-color: #c5a059; -fx-pref-width: 38; -fx-pref-height: 2; -fx-max-width: 38; }
+.ec-balcao-numero  { -fx-font-size: 32; -fx-font-weight: bold; -fx-text-fill: #07332b; }
+.ec-balcao-servico { -fx-font-size: 12; -fx-text-fill: #777; -fx-alignment: CENTER; -fx-wrap-text: true; -fx-text-alignment: CENTER; }
+
+.ec-proxima-row {
+    -fx-background-color: #f8fbfa;
+    -fx-background-radius: 8;
+    -fx-border-color: #eaeaea;
+    -fx-border-radius: 8;
+    -fx-padding: 10 14;
+    -fx-spacing: 12;
+    -fx-alignment: CENTER_LEFT;
+}
+.ec-proxima-badge {
+    -fx-background-color: #07332b;
+    -fx-background-radius: 7;
+    -fx-min-width: 40;
+    -fx-min-height: 40;
+    -fx-max-width: 40;
+    -fx-max-height: 40;
+    -fx-alignment: CENTER;
+}
+.ec-proxima-badge-letra { -fx-font-size: 17; -fx-font-weight: bold; -fx-text-fill: white; }
+.ec-proxima-numero      { -fx-font-size: 20; -fx-font-weight: bold; -fx-text-fill: #07332b; }
+.ec-proxima-divisor     { -fx-background-color: #c5a059; -fx-pref-width: 2; -fx-pref-height: 20; -fx-max-width: 2; }
+.ec-proxima-servico     { -fx-font-size: 13; -fx-text-fill: #777; }
+
+.ec-footer {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 12 20;
+    -fx-spacing: 12;
+    -fx-alignment: CENTER_LEFT;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 8, 0, 0, 1);
+}
+.ec-footer-icon { -fx-font-size: 18; -fx-text-fill: #07332b; }
+.ec-footer-msg  { -fx-font-size: 14; -fx-font-weight: bold; -fx-text-fill: #07332b; }
+.ec-footer-sub  { -fx-font-size: 12; -fx-font-weight: bold; -fx-text-fill: #b8860b; }
+.ec-empty-label { -fx-font-size: 13; -fx-text-fill: #aaa; -fx-alignment: CENTER; }
+
+/* ── RESPONSIVIDADE ───────────────────────────────────────── */
+BorderPane { -fx-min-width: 300; }
+.form-field, .login-field { -fx-max-width: Infinity; }
+
+/* ── CLASSES GERADAS POR CÓDIGO (controller) ──────────────── */
+.balc-badge {
+    -fx-background-color: #07332b;
+    -fx-background-radius: 6;
+    -fx-min-width: 36;
+    -fx-min-height: 36;
+    -fx-max-width: 36;
+    -fx-max-height: 36;
+    -fx-alignment: CENTER;
+}
+.balc-badge-letra { -fx-font-size: 15; -fx-font-weight: bold; -fx-text-fill: white; }
+.balc-row-numero  { -fx-font-size: 17; -fx-font-weight: bold; -fx-text-fill: #07332b; }
+.balc-row-servico { -fx-font-size: 12; -fx-text-fill: #777; }
+.balc-row-tempo   { -fx-font-size: 11; -fx-text-fill: #aaa; }
+.balc-empty-label { -fx-font-size: 12; -fx-text-fill: #bbb; -fx-alignment: CENTER; }
+.balc-list-row {
+    -fx-background-color: #f8faf9;
+    -fx-background-radius: 7;
+    -fx-border-color: #e4eeeb;
+    -fx-border-radius: 7;
+    -fx-padding: 8 12;
+}
+
+/* ec-card-body como VBox (EcraChamada) */
+.ec-card-body { -fx-padding: 16; -fx-spacing: 10; }
