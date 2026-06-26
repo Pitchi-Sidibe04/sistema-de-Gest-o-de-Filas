@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.chart.PieChart?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -23,30 +28,28 @@
         <ImageView fitHeight="52" fitWidth="42" pickOnBounds="true" preserveRatio="true">
           <image><Image url="@img/logo.jpg"/></image>
         </ImageView>
-        <Label text="Banco"   styleClass="gerente-brand"/>
-        <Label text="UBUNTUU" styleClass="gerente-brand-bold"/>
+        <Label text="Banco"                  styleClass="gerente-brand"/>
+        <Label text="UBUNTUU"                styleClass="gerente-brand-bold"/>
         <Label text="Comunidade e Sabedoria" styleClass="gerente-brand-sub"/>
       </VBox>
-
       <VBox styleClass="gerente-user-area" spacing="2">
         <Label fx:id="lblBemVindo" text="Gerente" styleClass="gerente-user-name"/>
         <Label text="Gerente"                     styleClass="gerente-user-role"/>
       </VBox>
-
-      <Button text="⊞  Visão Geral"     styleClass="gerente-nav-btn, gerente-nav-btn-active" maxWidth="Infinity"/>
-      <Button text="↕  Regras e Ordens"  styleClass="gerente-nav-btn" maxWidth="Infinity"/>
-      <Button text="📊  Relatórios"      styleClass="gerente-nav-btn" maxWidth="Infinity"/>
-      <Button text="⊞  Menu Quiosque"   styleClass="gerente-nav-btn" maxWidth="Infinity" onAction="#irMenuPrincipal"/>
-
+      <Button text="⊞  Visão Geral"    styleClass="gerente-nav-btn, gerente-nav-btn-active" maxWidth="Infinity"/>
+      <Button text="↕  Regras e Ordens" styleClass="gerente-nav-btn" maxWidth="Infinity"/>
+      <Button text="📊  Relatórios"     styleClass="gerente-nav-btn" maxWidth="Infinity"/>
+      <Button text="⊞  Menu Quiosque"  styleClass="gerente-nav-btn" maxWidth="Infinity" onAction="#irMenuPrincipal"/>
       <Region VBox.vgrow="ALWAYS"/>
       <Button text="↩  Sair" styleClass="gerente-nav-btn" maxWidth="Infinity" onAction="#terminarSessao"
               style="-fx-border-color: rgba(255,255,255,0.10) transparent transparent transparent; -fx-border-width: 1;"/>
     </VBox>
   </left>
 
-  <!-- CONTEÚDO -->
+  <!-- CONTEÚDO PRINCIPAL -->
   <center>
-    <ScrollPane fitToWidth="true" style="-fx-background-color: #f4f6f5; -fx-background: #f4f6f5;">
+    <ScrollPane fitToWidth="true"
+                style="-fx-background-color: #f4f6f5; -fx-background: #f4f6f5;">
       <VBox styleClass="gerente-main" spacing="16">
 
         <!-- Topbar -->
@@ -55,40 +58,84 @@
             <Label text="Painel do Gerente"          styleClass="gerente-page-title"/>
             <Label text="Visão geral do atendimento" styleClass="gerente-page-subtitle"/>
           </VBox>
-          <Button text="Atualizar" onAction="#atualizar" styleClass="gerente-btn-update"/>
-          <Button text="📊  Excel" onAction="#gerarExcel"
-                  style="-fx-background-color: #217346; -fx-text-fill: white; -fx-font-weight: bold; -fx-padding: 9 18; -fx-background-radius: 6; -fx-cursor: hand;"/>
+          <Button text="↻  Atualizar" onAction="#atualizar" styleClass="gerente-btn-update"/>
+          <Button text="📊  Exportar Excel" onAction="#gerarExcel"
+                  style="-fx-background-color: #217346; -fx-text-fill: white;
+                         -fx-font-weight: bold; -fx-padding: 9 18;
+                         -fx-background-radius: 6; -fx-cursor: hand;"/>
         </HBox>
 
-        <!-- Estatísticas -->
+        <!-- Cards de estatísticas -->
         <HBox spacing="12">
           <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
-            <Label text="Senhas hoje"   styleClass="stat-label"/>
-            <Label fx:id="lblTotalHoje" text="0" styleClass="stat-value"/>
+            <Label text="Senhas Emitidas"  styleClass="stat-label"/>
+            <Label fx:id="lblTotalHoje"    text="0" styleClass="stat-value"/>
+            <Label fx:id="lblTotalSub"     text="hoje" styleClass="stat-sub"/>
           </VBox>
           <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
-            <Label text="Em espera"     styleClass="stat-label"/>
-            <Label fx:id="lblEmEspera"  text="0" styleClass="stat-value"/>
-          </VBox>
-          <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
-            <Label text="Concluídas"     styleClass="stat-label"/>
+            <Label text="Atendimentos"   styleClass="stat-label"/>
             <Label fx:id="lblConcluidas" text="0" styleClass="stat-value"/>
+            <Label fx:id="lblConclSub"   text="concluídos" styleClass="stat-sub"/>
           </VBox>
           <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
-            <Label text="Tempo médio"    styleClass="stat-label"/>
+            <Label text="Em Espera"     styleClass="stat-label"/>
+            <Label fx:id="lblEmEspera"  text="0" styleClass="stat-value"/>
+            <Label text="aguardando"    styleClass="stat-sub"/>
+          </VBox>
+          <VBox styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <Label text="Tempo Médio"    styleClass="stat-label"/>
             <Label fx:id="lblTempoMedio" text="—"  styleClass="stat-value"/>
+            <Label text="de espera"      styleClass="stat-sub"/>
           </VBox>
         </HBox>
 
-        <!-- Tabela de senhas -->
-        <VBox styleClass="gerente-table-card" spacing="10" VBox.vgrow="ALWAYS">
-          <Label text="Senhas emitidas hoje" styleClass="gerente-table-title"/>
-          <TableView fx:id="tabelaSenhas" VBox.vgrow="ALWAYS" prefHeight="350">
+        <!-- Gráfico de Linha: Evolução dos Atendimentos -->
+        <VBox styleClass="gerente-chart-card" spacing="8">
+          <Label text="Evolução dos Atendimentos" styleClass="gerente-chart-title"/>
+          <LineChart fx:id="chartEvolucao" prefHeight="220" animated="false"
+                     createSymbols="true" legendVisible="false">
+            <xAxis><CategoryAxis label="Hora do dia"/></xAxis>
+            <yAxis><NumberAxis label="Senhas" lowerBound="0" tickUnit="1"/></yAxis>
+          </LineChart>
+        </VBox>
+
+        <!-- Gráfico de Barras + Gráfico de Pizza -->
+        <HBox spacing="12">
+          <VBox styleClass="gerente-chart-card" spacing="8" HBox.hgrow="ALWAYS">
+            <Label text="Serviços Mais Procurados" styleClass="gerente-chart-title"/>
+            <BarChart fx:id="chartServicos" prefHeight="240" animated="false"
+                      legendVisible="false">
+              <xAxis><CategoryAxis/></xAxis>
+              <yAxis><NumberAxis lowerBound="0" tickUnit="1"/></yAxis>
+            </BarChart>
+          </VBox>
+          <VBox styleClass="gerente-chart-card" spacing="8" HBox.hgrow="ALWAYS">
+            <Label text="Distribuição das Senhas" styleClass="gerente-chart-title"/>
+            <PieChart fx:id="chartDistribuicao" prefHeight="240" animated="false"
+                      labelsVisible="true" legendVisible="true"/>
+          </VBox>
+        </HBox>
+
+        <!-- Tabela: Desempenho dos Balconistas -->
+        <VBox styleClass="gerente-chart-card" spacing="8">
+          <Label text="Desempenho dos Balconistas" styleClass="gerente-chart-title"/>
+          <TableView fx:id="tabelaBalconistas" prefHeight="180" maxWidth="Infinity">
             <columns>
-              <TableColumn fx:id="colCodigo"  text="Código"   prefWidth="100"/>
-              <TableColumn fx:id="colServico" text="Serviço"  prefWidth="200"/>
-              <TableColumn fx:id="colEstado"  text="Estado"   prefWidth="140"/>
-              <TableColumn fx:id="colHora"    text="Hora"     prefWidth="80"/>
+              <TableColumn fx:id="colBalcNome"   text="Balconista"     prefWidth="220"/>
+              <TableColumn fx:id="colBalcAten"   text="Atendimentos"   prefWidth="130"/>
+            </columns>
+          </TableView>
+        </VBox>
+
+        <!-- Tabela completa de senhas -->
+        <VBox styleClass="gerente-chart-card" spacing="8">
+          <Label text="Senhas emitidas hoje" styleClass="gerente-chart-title"/>
+          <TableView fx:id="tabelaSenhas" prefHeight="300" maxWidth="Infinity">
+            <columns>
+              <TableColumn fx:id="colCodigo"  text="Código"  prefWidth="100"/>
+              <TableColumn fx:id="colServico" text="Serviço" prefWidth="200"/>
+              <TableColumn fx:id="colEstado"  text="Estado"  prefWidth="160"/>
+              <TableColumn fx:id="colHora"    text="Hora"    prefWidth="80"/>
             </columns>
           </TableView>
         </VBox>

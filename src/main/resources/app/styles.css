@@ -726,3 +726,109 @@ BorderPane { -fx-min-width: 300; }
 
 /* ec-card-body como VBox (EcraChamada) */
 .ec-card-body { -fx-padding: 16; -fx-spacing: 10; }
+
+
+/* ============================================================
+   PAINEL GERENTE — Cards, Gráficos, Tabela de Balconistas
+   ============================================================ */
+
+/* Card de estatística */
+.stat-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 16 20;
+    -fx-spacing: 6;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 6, 0, 0, 2);
+}
+.stat-label {
+    -fx-font-size: 12;
+    -fx-text-fill: #888;
+    -fx-font-family: "System";
+}
+.stat-value {
+    -fx-font-size: 34;
+    -fx-font-family: "System Bold";
+    -fx-text-fill: #006d57;
+    -fx-font-weight: bold;
+}
+.stat-sub {
+    -fx-font-size: 11;
+    -fx-text-fill: #aaa;
+}
+
+/* Card de gráfico */
+.gerente-chart-card {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 16 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 6, 0, 0, 2);
+}
+.gerente-chart-title {
+    -fx-font-size: 14;
+    -fx-font-family: "System Bold";
+    -fx-text-fill: #1a1a1a;
+    -fx-font-weight: bold;
+}
+
+/* Estilo dos gráficos */
+.chart-plot-background  { -fx-background-color: white; }
+.chart-background       { -fx-background-color: white; }
+.chart-content          { -fx-padding: 4; }
+
+.default-color0.chart-bar { -fx-bar-fill: #006d57; }
+.default-color1.chart-bar { -fx-bar-fill: #c5a059; }
+.default-color2.chart-bar { -fx-bar-fill: #2e8b68; }
+.default-color3.chart-bar { -fx-bar-fill: #4ab494; }
+.default-color4.chart-bar { -fx-bar-fill: #1a4d3e; }
+
+.default-color0.chart-line-symbol { -fx-background-color: #006d57, white; }
+.default-color0.chart-series-line { -fx-stroke: #006d57; -fx-stroke-width: 2.5; }
+
+/* Pizza */
+.default-color0.chart-pie { -fx-pie-color: #006d57; }
+.default-color1.chart-pie { -fx-pie-color: #c5a059; }
+.default-color2.chart-pie { -fx-pie-color: #e74c3c; }
+.default-color3.chart-pie { -fx-pie-color: #3498db; }
+
+/* Tabela de balconistas */
+.table-view .table-cell       { -fx-font-size: 13; -fx-padding: 8 12; }
+.table-view .column-header    { -fx-background-color: #f0f4f3; -fx-font-weight: bold; }
+.table-view .table-row-cell:selected { -fx-background-color: #e0f0ec; }
+
+/* Dica do dia */
+.dica-box {
+    -fx-background-color: #fffbea;
+    -fx-background-radius: 8;
+    -fx-border-color: #f0d060;
+    -fx-border-radius: 8;
+    -fx-border-width: 1;
+    -fx-padding: 12 16;
+    -fx-spacing: 16;
+    -fx-alignment: CENTER_LEFT;
+}
+.dica-title {
+    -fx-font-family: "System Bold";
+    -fx-font-size: 13;
+    -fx-text-fill: #856404;
+    -fx-font-weight: bold;
+}
+.dica-text {
+    -fx-font-size: 12;
+    -fx-text-fill: #555;
+}
+
+/* Botão de actualizar */
+.gerente-btn-update {
+    -fx-background-color: white;
+    -fx-border-color: #006d57;
+    -fx-border-width: 1.5;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+    -fx-text-fill: #006d57;
+    -fx-font-weight: bold;
+    -fx-padding: 9 18;
+    -fx-cursor: hand;
+}
+.gerente-btn-update:hover {
+    -fx-background-color: #f0f9f6;
+}

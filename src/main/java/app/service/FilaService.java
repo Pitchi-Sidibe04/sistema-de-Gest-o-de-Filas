@@ -194,4 +194,15 @@ public class FilaService {
             System.err.println("⚠ Log: " + e.getMessage());
         }
     }
+
+    /**
+     * Avança a fila em memória sem aceder à BD.
+     * Usado como fallback quando a BD está indisponível no clienteAusente.
+     */
+    public Senha chamarProximaEmMemoria() {
+        Senha proxima = filaPrioritaria.poll();
+        if (proxima == null) proxima = filaNormal.poll();
+        return proxima;
+    }
+
 }

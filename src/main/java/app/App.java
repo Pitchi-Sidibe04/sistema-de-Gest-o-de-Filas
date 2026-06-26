@@ -1,6 +1,7 @@
 package app;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -44,16 +45,25 @@ public class App extends Application {
             loginStage.show();
 
             // ── Janela 3: Ecrã de Chamada (Sala de Espera) ─────────────────
+            // Carrega o FXML antecipadamente, mas adia o show() para depois
+            // do JavaFX ter aplicado o layout e as coordenadas do stage estarem
+            // disponíveis (stage.getX/Y/Height retornam 0 antes do primeiro pulse).
             Parent ecraRoot = FXMLLoader.load(App.class.getResource("/app/EcraChamada.fxml"));
             ecraScene = new Scene(ecraRoot, 960, 520);
             ecraStage = new Stage();
             ecraStage.setScene(ecraScene);
             ecraStage.setTitle("Banco Ubuntu — Sala de Espera");
             ecraStage.setResizable(true);
-            // Posiciona abaixo da janela do Quiosque
-            ecraStage.setX(stage.getX());
-            ecraStage.setY(stage.getY() + stage.getHeight() + 20);
-            ecraStage.show();
+
+            // Platform.runLater garante que as dimensões reais do stage
+            // já estão calculadas quando posicionamos e mostramos o ecraStage.
+            Platform.runLater(() -> {
+                ecraStage.setX(stage.getX());
+                ecraStage.setY(stage.getY() + stage.getHeight() + 20);
+                ecraStage.show();
+                System.out.println("✓ Sala de Espera aberta em ("
+                        + ecraStage.getX() + ", " + ecraStage.getY() + ")");
+            });
 
             System.out.println("✓ Aplicação iniciada: Quiosque + Login + Sala de Espera");
 

@@ -46,4 +46,17 @@ public class Senha {
 
     @Override
     public String toString() { return codigo + " [" + estado + "]" + (prioritario ? " ★" : ""); }
+
+    public String getEstadoFormatado() {
+        if (estado == null) return "—";
+        return switch (estado) {
+            case EM_ESPERA      -> "⏳ Em Espera";
+            case CHAMADA        -> "📢 Chamada";
+            case EM_ATENDIMENTO -> "✅ Em Atendimento";
+            case CONCLUIDA      -> "✔ Concluída";
+            case AUSENTE        -> "✗ Ausente";
+            case CANCELADA      -> "✗ Cancelada";
+        };
+    }
+
 }

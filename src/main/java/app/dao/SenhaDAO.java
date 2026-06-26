@@ -8,6 +8,7 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 /**
@@ -167,4 +168,68 @@ public class SenhaDAO {
         if (ts != null) s.setDataEmissao(ts.toLocalDateTime());
         return s;
     }
+
+    // ── Métodos para gráficos do Painel do Gerente ─────────────────
+
+    /** Conta senhas de hoje por serviço (para BarChart e PieChart). */
+    public java.util.Map<String, Integer> contarPorServico() throws SQLException {
+        java.util.Map<String, Integer> mapa = new LinkedHashMap<>();
+        Connection conn = app.DatabaseConnection.getConexao();
+        if (conn == null) return mapa;
+        String sql = "SELECT sv.nome, COUNT(*) AS total " +
+                     "FROM senha s JOIN servico sv ON s.id_servico = sv.id_servico " +
+                     "WHERE DATE(s.data_emissao) = CURDATE() " +
+                     "GROUP BY sv.nome ORDER BY total DESC";
+        try (java.sql.PreparedStatement ps = conn.prepareStatement(sql);
+             java.sql.ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) mapa.put(rs.getString("nome"), rs.getInt("total"));
+        }
+        return mapa;
+    }
+
+    /** Conta senhas de hoje por estado (para PieChart de distribuição). */
+    public java.util.Map<String, Integer> contarPorEstado() throws SQLException {
+        java.util.Map<String, Integer> mapa = new LinkedHashMap<>();
+        Connection conn = app.DatabaseConnection.getConexao();
+        if (conn == null) return mapa;
+        String sql = "SELECT estado, COUNT(*) AS total FROM senha " +
+                     "WHERE DATE(data_emissao) = CURDATE() GROUP BY estado";
+        try (java.sql.PreparedStatement ps = conn.prepareStatement(sql);
+             java.sql.ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) mapa.put(rs.getString("estado"), rs.getInt("total"));
+        }
+        return mapa;
+    }
+
+    /** Conta senhas por hora do dia (para LineChart de evolução). */
+    public java.util.Map<String, Integer> evolucaoPorHora() throws SQLException {
+        java.util.Map<String, Integer> mapa = new LinkedHashMap<>();
+        Connection conn = app.DatabaseConnection.getConexao();
+        if (conn == null) return mapa;
+        String sql = "SELECT LPAD(HOUR(data_emissao), 2, '0') AS hora, COUNT(*) AS total " +
+                     "FROM senha WHERE DATE(data_emissao) = CURDATE() " +
+                     "GROUP BY HOUR(data_emissao) ORDER BY hora";
+        try (java.sql.PreparedStatement ps = conn.prepareStatement(sql);
+             java.sql.ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) mapa.put(rs.getString("hora") + "h", rs.getInt("total"));
+        }
+        return mapa;
+    }
+
+    /** Conta atendimentos concluídos por utilizador hoje (para tabela de desempenho). */
+    public java.util.Map<String, Integer> desempenhoBalconistas() throws SQLException {
+        java.util.Map<String, Integer> mapa = new LinkedHashMap<>();
+        Connection conn = app.DatabaseConnection.getConexao();
+        if (conn == null) return mapa;
+        String sql = "SELECT u.nome, COUNT(*) AS total " +
+                     "FROM atendimento a JOIN utilizador u ON a.id_utilizador = u.id_utilizador " +
+                     "WHERE DATE(a.hora_chamada) = CURDATE() AND a.hora_fim IS NOT NULL " +
+                     "GROUP BY u.nome ORDER BY total DESC LIMIT 5";
+        try (java.sql.PreparedStatement ps = conn.prepareStatement(sql);
+             java.sql.ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) mapa.put(rs.getString("nome"), rs.getInt("total"));
+        }
+        return mapa;
+    }
+
 }

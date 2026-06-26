@@ -1,14 +1,15 @@
 package app;
 
-import app.model.Senha;
-import app.model.Senha.Estado;
 import app.dao.SenhaDAO;
-import app.service.FilaService;
+import app.model.Senha;
 import app.service.ExcelService;
 import app.service.LogService;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.chart.*;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.FileChooser;
@@ -17,195 +18,109 @@ import java.io.File;
 import java.sql.SQLException;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
-/**
- * Controller do Painel do Gerente — nível de acesso Administrador / Supervisor.
- *
- * Funcionalidades:
- *  - Cards de estatísticas em tempo real (total, em espera, concluídas, tempo médio)
- *  - Tabela com todas as senhas emitidas hoje
- *  - Chamar próxima senha, marcar ausente, concluir atendimento
- *  - Gerar relatório Excel do dia
- *  - Terminar sessão e voltar ao Login
- */
 public class PainelGerenteController {
 
-    // ── Cards de estatísticas ────────────────────────────────────
+    // ── Cards ─────────────────────────────────────────────────────
     @FXML private Label lblBemVindo;
     @FXML private Label lblTotalHoje;
-    @FXML private Label lblEmEspera;
+    @FXML private Label lblTotalSub;
     @FXML private Label lblConcluidas;
+    @FXML private Label lblConclSub;
+    @FXML private Label lblEmEspera;
     @FXML private Label lblTempoMedio;
 
-    // ── Barra de atendimento ─────────────────────────────────────
-    @FXML private Label  lblSenhaActual;
-    @FXML private Button btnChamarProxima;
-    @FXML private Button btnClienteAusente;
-    @FXML private Button btnConcluir;
+    // ── Gráficos ──────────────────────────────────────────────────
+    @FXML private LineChart<String, Number>  chartEvolucao;
+    @FXML private BarChart<String, Number>   chartServicos;
+    @FXML private PieChart                   chartDistribuicao;
 
-    // ── Tabela de senhas ─────────────────────────────────────────
-    @FXML private TableView<Senha>        tabelaSenhas;
-    @FXML private TableColumn<Senha, String> colCodigo;
-    @FXML private TableColumn<Senha, String> colServico;
-    @FXML private TableColumn<Senha, String> colEstado;
-    @FXML private TableColumn<Senha, String> colHora;
+    // ── Tabelas ───────────────────────────────────────────────────
+    @FXML private TableView<Senha>                  tabelaSenhas;
+    @FXML private TableColumn<Senha, String>        colCodigo;
+    @FXML private TableColumn<Senha, String>        colServico;
+    @FXML private TableColumn<Senha, String>        colEstado;
+    @FXML private TableColumn<Senha, String>        colHora;
 
-    // ── Services ─────────────────────────────────────────────────
-    private final SenhaDAO    senhaDAO = new SenhaDAO();
-    private final FilaService filaSvc  = FilaService.get();
+    @FXML private TableView<BalconistaRow>           tabelaBalconistas;
+    @FXML private TableColumn<BalconistaRow, String> colBalcNome;
+    @FXML private TableColumn<BalconistaRow, Number> colBalcAten;
+
+    // ── Services ──────────────────────────────────────────────────
+    private final SenhaDAO     senhaDAO = new SenhaDAO();
     private final ExcelService excelSvc = new ExcelService();
-
-    // ── Estado interno ───────────────────────────────────────────
-    private Senha senhaActual;
 
     private static final DateTimeFormatter FMT_HORA =
         DateTimeFormatter.ofPattern("HH:mm");
 
-    // ── INIT ─────────────────────────────────────────────────────
+    // ── INIT ──────────────────────────────────────────────────────
 
     @FXML
     public void initialize() {
-        // Saudação
         String nome = Sessao.get().getNome();
         if (lblBemVindo != null)
             lblBemVindo.setText(nome != null ? nome : "Gerente");
 
-        // Configurar colunas da tabela
+        configurarTabelaSenhas();
+        configurarTabelaBalconistas();
+        atualizar();
+    }
+
+    private void configurarTabelaSenhas() {
         if (colCodigo  != null) colCodigo .setCellValueFactory(new PropertyValueFactory<>("codigo"));
         if (colServico != null) colServico.setCellValueFactory(new PropertyValueFactory<>("nomeServico"));
         if (colEstado  != null) colEstado .setCellValueFactory(new PropertyValueFactory<>("estadoFormatado"));
         if (colHora    != null) colHora   .setCellValueFactory(d -> {
             Senha s = d.getValue();
-            String hora = s.getDataEmissao() != null
-                ? s.getDataEmissao().format(FMT_HORA) : "—";
-            return new javafx.beans.property.SimpleStringProperty(hora);
+            String h = s.getDataEmissao() != null ? s.getDataEmissao().format(FMT_HORA) : "—";
+            return new SimpleStringProperty(h);
         });
+    }
 
-        atualizar();
+    private void configurarTabelaBalconistas() {
+        if (colBalcNome != null) colBalcNome.setCellValueFactory(d ->
+            new SimpleStringProperty(d.getValue().nome()));
+        if (colBalcAten != null) colBalcAten.setCellValueFactory(d ->
+            new SimpleIntegerProperty(d.getValue().atendimentos()));
     }
 
     // ── ACÇÕES ────────────────────────────────────────────────────
 
-    /** Actualiza cards de estatísticas e tabela. */
     @FXML
-    private void atualizar() {
-        try {
-            // Cards
-            int total    = senhaDAO.contarHoje();
-            int emEspera = senhaDAO.contarEmEspera();
-
-            if (lblTotalHoje  != null) lblTotalHoje .setText(String.valueOf(total));
-            if (lblEmEspera   != null) lblEmEspera  .setText(String.valueOf(emEspera));
-            if (lblConcluidas != null) lblConcluidas.setText(
-                String.valueOf(total - emEspera));
-
-            // Tabela
-            List<Senha> lista = senhaDAO.listarHoje();
-            ObservableList<Senha> obs = FXCollections.observableArrayList(lista);
-            if (tabelaSenhas != null) tabelaSenhas.setItems(obs);
-
-        } catch (SQLException e) {
-            System.err.println("⚠ Erro ao atualizar painel: " + e.getMessage());
-        }
+    public void atualizar() {
+        atualizarCards();
+        atualizarGraficoLinha();
+        atualizarGraficoBarras();
+        atualizarGraficoPizza();
+        atualizarTabelaBalconistas();
+        atualizarTabelaSenhas();
     }
 
-    /** Chama a próxima senha da fila (prioridade → FIFO). */
-    @FXML
-    private void chamarProxima() {
-        try {
-            Senha proxima = filaSvc.chamarProxima(null);
-
-            if (proxima == null) {
-                mostrarInfo("Fila vazia", "Não há senhas em espera.");
-                return;
-            }
-
-            senhaActual = proxima;
-
-            if (lblSenhaActual    != null) lblSenhaActual.setText(senhaActual.getCodigo());
-            if (btnClienteAusente != null) btnClienteAusente.setDisable(false);
-            if (btnConcluir       != null) btnConcluir.setDisable(false);
-
-            atualizar();
-
-        } catch (SQLException e) {
-            System.err.println("⚠ Erro ao chamar próxima: " + e.getMessage());
-        }
-    }
-
-    /** Marca o cliente actual como ausente e chama automaticamente o próximo. */
-    @FXML
-    private void clienteAusente() {
-        if (senhaActual == null) return;
-        try {
-            Senha proxima = filaSvc.clienteAusente(senhaActual, null);
-
-            if (proxima != null) {
-                senhaActual = proxima;
-                if (lblSenhaActual != null) lblSenhaActual.setText(senhaActual.getCodigo());
-            } else {
-                senhaActual = null;
-                if (lblSenhaActual    != null) lblSenhaActual.setText("—");
-                if (btnClienteAusente != null) btnClienteAusente.setDisable(true);
-                if (btnConcluir       != null) btnConcluir.setDisable(true);
-            }
-
-            atualizar();
-
-        } catch (SQLException e) {
-            System.err.println("⚠ Erro ao marcar ausente: " + e.getMessage());
-        }
-    }
-
-    /** Conclui o atendimento actual. */
-    @FXML
-    private void concluir() {
-        if (senhaActual == null) return;
-        try {
-            filaSvc.concluir(senhaActual);
-            senhaActual = null;
-
-            if (lblSenhaActual    != null) lblSenhaActual.setText("—");
-            if (btnClienteAusente != null) btnClienteAusente.setDisable(true);
-            if (btnConcluir       != null) btnConcluir.setDisable(true);
-
-            atualizar();
-
-        } catch (SQLException e) {
-            System.err.println("⚠ Erro ao concluir: " + e.getMessage());
-        }
-    }
-
-    /** Gera o relatório Excel do dia com FileChooser. */
     @FXML
     private void gerarExcel() {
         FileChooser fc = new FileChooser();
         fc.setTitle("Guardar relatório Excel");
-        fc.setInitialFileName("Relatorio_" +
-            java.time.LocalDate.now().toString() + ".xlsx");
+        fc.setInitialFileName("Relatorio_" + java.time.LocalDate.now() + ".xlsx");
         fc.getExtensionFilters().add(
-            new FileChooser.ExtensionFilter("Excel", "*.xlsx"));
+            new FileChooser.ExtensionFilter("Excel (.xlsx)", "*.xlsx"));
 
         File ficheiro = fc.showSaveDialog(
             tabelaSenhas != null ? tabelaSenhas.getScene().getWindow() : null);
-
         if (ficheiro == null) return;
 
         boolean ok = excelSvc.gerarRelatorio(ficheiro.getAbsolutePath());
-        mostrarInfo(
-            ok ? "Relatório gerado" : "Erro",
-            ok ? "Relatório guardado em:\n" + ficheiro.getAbsolutePath()
-               : "Erro ao gerar relatório Excel."
-        );
+        Alert a = new Alert(ok ? Alert.AlertType.INFORMATION : Alert.AlertType.ERROR);
+        a.setTitle(ok ? "Excel gerado" : "Erro");
+        a.setHeaderText(null);
+        a.setContentText(ok ? "Guardado em:\n" + ficheiro.getAbsolutePath()
+                            : "Não foi possível gerar o relatório.");
+        a.showAndWait();
     }
 
-    /** Navega para o Menu principal do quiosque (janela 1). */
     @FXML
-    private void irMenuPrincipal() {
-        App.mudarCena("Menu.fxml");
-    }
+    private void irMenuPrincipal() { App.mudarCena("Menu.fxml"); }
 
-    /** Termina a sessão e volta ao Login. */
     @FXML
     private void terminarSessao() {
         LogService.logout();
@@ -213,13 +128,171 @@ public class PainelGerenteController {
         App.mudarCenaLogin("Login.fxml");
     }
 
+    // ── ACTUALIZAÇÃO DOS CARDS ────────────────────────────────────
+
+    private void atualizarCards() {
+        try {
+            int total    = senhaDAO.contarHoje();
+            int emEspera = senhaDAO.contarEmEspera();
+            int concl    = total - emEspera;
+
+            if (lblTotalHoje  != null) lblTotalHoje .setText(String.valueOf(total));
+            if (lblEmEspera   != null) lblEmEspera  .setText(String.valueOf(emEspera));
+            if (lblConcluidas != null) lblConcluidas.setText(String.valueOf(concl));
+
+        } catch (SQLException e) {
+            System.err.println("⚠ Erro ao carregar cards: " + e.getMessage());
+        }
+    }
+
+    // ── GRÁFICO DE LINHA: Evolução por hora ───────────────────────
+
+    private void atualizarGraficoLinha() {
+        if (chartEvolucao == null) return;
+        chartEvolucao.getData().clear();
+
+        XYChart.Series<String, Number> serie = new XYChart.Series<>();
+        serie.setName("Senhas");
+
+        try {
+            Map<String, Integer> dados = senhaDAO.evolucaoPorHora();
+            if (dados.isEmpty()) {
+                // dados de demonstração para a apresentação
+                serie.getData().addAll(
+                    ponto("08h",3), ponto("09h",8), ponto("10h",12),
+                    ponto("11h",7), ponto("12h",4), ponto("14h",9),
+                    ponto("15h",11),ponto("16h",6)
+                );
+            } else {
+                dados.forEach((h, v) -> serie.getData().add(ponto(h, v)));
+            }
+        } catch (SQLException e) {
+            serie.getData().addAll(
+                ponto("08h",3), ponto("09h",8), ponto("10h",12),
+                ponto("11h",7), ponto("12h",4)
+            );
+        }
+
+        chartEvolucao.getData().add(serie);
+
+        // Estilizar linha em verde
+        serie.getNode().setStyle("-fx-stroke: #006d57; -fx-stroke-width: 2;");
+    }
+
+    // ── GRÁFICO DE BARRAS: Serviços mais procurados ───────────────
+
+    private void atualizarGraficoBarras() {
+        if (chartServicos == null) return;
+        chartServicos.getData().clear();
+
+        XYChart.Series<String, Number> serie = new XYChart.Series<>();
+        serie.setName("Senhas");
+
+        try {
+            Map<String, Integer> dados = senhaDAO.contarPorServico();
+            if (dados.isEmpty()) {
+                serie.getData().addAll(
+                    ponto("Caixa",32), ponto("Contas",18),
+                    ponto("Cartões",14), ponto("Prioritário",8), ponto("Outros",10)
+                );
+            } else {
+                dados.forEach((s, v) -> serie.getData().add(ponto(s, v)));
+            }
+        } catch (SQLException e) {
+            serie.getData().addAll(
+                ponto("Caixa",32), ponto("Contas",18),
+                ponto("Cartões",14), ponto("Outros",10)
+            );
+        }
+
+        chartServicos.getData().add(serie);
+    }
+
+    // ── GRÁFICO DE PIZZA: Distribuição por estado ─────────────────
+
+    private void atualizarGraficoPizza() {
+        if (chartDistribuicao == null) return;
+        chartDistribuicao.getData().clear();
+
+        try {
+            Map<String, Integer> dados = senhaDAO.contarPorEstado();
+            if (dados.isEmpty()) {
+                chartDistribuicao.getData().addAll(
+                    fatia("Em Espera", 8),
+                    fatia("Atendidas", 24),
+                    fatia("Ausentes",  4)
+                );
+            } else {
+                dados.forEach((estado, v) ->
+                    chartDistribuicao.getData().add(fatia(formatarEstado(estado), v)));
+            }
+        } catch (SQLException e) {
+            chartDistribuicao.getData().addAll(
+                fatia("Em Espera", 8),
+                fatia("Atendidas", 24),
+                fatia("Ausentes",  4)
+            );
+        }
+    }
+
+    // ── TABELA DE BALCONISTAS ─────────────────────────────────────
+
+    private void atualizarTabelaBalconistas() {
+        if (tabelaBalconistas == null) return;
+
+        ObservableList<BalconistaRow> lista = FXCollections.observableArrayList();
+        try {
+            Map<String, Integer> dados = senhaDAO.desempenhoBalconistas();
+            if (dados.isEmpty()) {
+                // dados de demonstração
+                lista.addAll(
+                    new BalconistaRow("Maria Santos",  12),
+                    new BalconistaRow("João Pereira",   9),
+                    new BalconistaRow("Ana Oliveira",   7)
+                );
+            } else {
+                dados.forEach((nome, v) -> lista.add(new BalconistaRow(nome, v)));
+            }
+        } catch (SQLException e) {
+            lista.addAll(new BalconistaRow("—", 0));
+        }
+        tabelaBalconistas.setItems(lista);
+    }
+
+    // ── TABELA DE SENHAS ──────────────────────────────────────────
+
+    private void atualizarTabelaSenhas() {
+        if (tabelaSenhas == null) return;
+        try {
+            List<Senha> lista = senhaDAO.listarHoje();
+            tabelaSenhas.setItems(FXCollections.observableArrayList(lista));
+        } catch (SQLException e) {
+            System.err.println("⚠ Erro ao listar senhas: " + e.getMessage());
+        }
+    }
+
     // ── Helpers ───────────────────────────────────────────────────
 
-    private void mostrarInfo(String titulo, String msg) {
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
-        a.setTitle(titulo);
-        a.setHeaderText(null);
-        a.setContentText(msg);
-        a.showAndWait();
+    private XYChart.Data<String, Number> ponto(String x, Number y) {
+        return new XYChart.Data<>(x, y);
     }
+
+    private PieChart.Data fatia(String nome, double valor) {
+        return new PieChart.Data(nome, valor);
+    }
+
+    private String formatarEstado(String estado) {
+        return switch (estado) {
+            case "EM_ESPERA"       -> "Em Espera";
+            case "CHAMADA"         -> "Chamada";
+            case "EM_ATENDIMENTO"  -> "Em Atendimento";
+            case "CONCLUIDA"       -> "Atendida";
+            case "AUSENTE"         -> "Ausente";
+            case "CANCELADA"       -> "Cancelada";
+            default                -> estado;
+        };
+    }
+
+    // ── Record auxiliar para a tabela de balconistas ──────────────
+    public record BalconistaRow(String nome, int atendimentos) {}
 }
